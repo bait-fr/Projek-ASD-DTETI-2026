@@ -5,6 +5,7 @@ using namespace std;
 struct Data {
     string nama;
     int NIU;
+    string tanggal;
     string jam;
     int durasi;
     string alasan;
@@ -25,7 +26,7 @@ struct NodeQueue {
 };
 
 // Dummy values untuk direturn
-Data dummyQueue = {"-----", -1, "-----", -1, "-----", "-----"};
+Data dummyQueue = {"-----", -1, "-----", "-----", -1, "-----", "-----"};
 pair<Data, int> dummyStack = make_pair(dummyQueue, -1);
 
 // Inisialisasi
@@ -61,6 +62,7 @@ void dequeue() {
         delete oldHead;
         cout << "\nNama: " << front.nama << '\n';
         cout << "NIU: " << front.NIU << '\n';
+        cout << "Tanggal: " << front.tanggal << '\n';
         cout << "Jam: " << front.jam << '\n';
         cout << "Durasi: " << front.durasi << '\n';
         cout << "Keperluan: " << front.alasan << '\n';
@@ -78,6 +80,7 @@ void displayQueue() {
             Data curData = cur->values;
             cout << "Nama: " << curData.nama << '\n';
             cout << "NIU: " << curData.NIU << '\n';
+            cout << "Tanggal: " << curData.tanggal << '\n';
             cout << "Jam: " << curData.jam << '\n';
             cout << "Durasi: " << curData.durasi << '\n';
             cout << "Keperluan: " << curData.alasan << '\n';
@@ -124,6 +127,7 @@ void pop() {
         delete oldHead;
         cout << "\nNama: " << top.nama << '\n';
         cout << "NIU: " << top.NIU << '\n';
+        cout << "Tanggal: " << top.tanggal << '\n';
         cout << "Jam: " << top.jam << '\n';
         cout << "Durasi: " << top.durasi << '\n';
         cout << "Keperluan: " << top.alasan << '\n';
@@ -143,6 +147,7 @@ void displayStack() {
             int curStatus = cur->status;
             cout << "Nama: " << curData.nama << '\n';
             cout << "NIU: " << curData.NIU << '\n';
+            cout << "Tanggal: " << curData.tanggal << '\n';
             cout << "Jam: " << curData.jam << '\n';
             cout << "Durasi: " << curData.durasi << '\n';
             cout << "Keperluan: " << curData.alasan << '\n';
@@ -180,6 +185,8 @@ int main() {
                 cout << "Masukkan NIU Anda: ";
                 cin >> studentData.NIU;
                 cin.ignore();
+                cout << "Masukkan tanggal peminjaman (DD-MM-YY): ";
+                getline(cin, studentData.tanggal);
                 cout << "Masukkan jam mulai peminjaman: ";
                 getline(cin, studentData.jam);
                 cout << "Masukkan durasi peminjaman (dalam menit): ";
@@ -222,6 +229,7 @@ int main() {
                         cout << "Riwayat peminjaman terakhir:\n";
                         cout << "Nama: " << cur->values.nama << '\n';
                         cout << "NIU: " << cur->values.NIU << '\n';
+                        cout << "Tanggal: " << cur->values.tanggal << '\n';
                         cout << "Jam: " << cur->values.jam << '\n';
                         cout << "Durasi: " << cur->values.durasi << '\n';
                         cout << "Keperluan: " << cur->values.alasan << '\n';
