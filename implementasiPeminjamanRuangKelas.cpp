@@ -169,40 +169,68 @@ int main() {
         cout << "\nMasuk sebagai?\n0: Peminjam\n1: Admin\n2: Exit\n";
         cin >> userType;
         if(userType == 0) {
-            while(true) {
-                int query;
-                cout << "\nMau lakukan apa?\n0: Buat permohonan peminjaman\n1: Lihat status peminjaman terakhir\n2: Exit\n";
-                cin >> query;
-                if(query == 0) {
-                    Data studentData;
-                    cout << "Masukkan nama Anda: ";
-                    cin >> studentData.nama;
-                    cout << "Masukkan NIU Anda: ";
-                    cin >> studentData.NIU;
-                    cout << "Masukkan jam mulai peminjaman: ";
-                    cin >> studentData.jam;
-                    cout << "Masukkan durasi peminjaman (dalam menit): ";
-                    cin >> studentData.durasi;
-                    cout << "Masukkan keperluan peminjaman: ";
-                    cin >> studentData.alasan;
-                    cout << "Masukkan ruangan yang akan dipinjam: ";
-                    cin >> studentData.ruangan;
-                    enqueue(studentData);
-                    cout << "Permohonan berhasil ditambahkan!\n";
+            int query;
+            cout << "\nMau lakukan apa?\n0: Buat permohonan peminjaman\n1: Lihat status peminjaman terakhir\n2: Exit\n";
+            cin >> query;
+            cin.ignore();
+            if(query == 0) {
+                Data studentData;
+                cout << "Masukkan nama Anda: ";
+                getline(cin, studentData.nama);
+                cout << "Masukkan NIU Anda: ";
+                cin >> studentData.NIU;
+                cin.ignore();
+                cout << "Masukkan jam mulai peminjaman: ";
+                getline(cin, studentData.jam);
+                cout << "Masukkan durasi peminjaman (dalam menit): ";
+                cin >> studentData.durasi;
+                cin.ignore();
+                cout << "Masukkan keperluan peminjaman: ";
+                getline(cin, studentData.alasan);
+                cout << "Masukkan ruangan yang akan dipinjam: ";
+                getline(cin, studentData.ruangan);
+                enqueue(studentData);
+                cout << "Permohonan berhasil ditambahkan!\n";
+            }
+            else if(query == 1) {
+                if(StackHead == NULL) {
+                    if(QueueHead == NULL) cout << "Tidak ada permohonan peminjaman!\n";
+                    else cout << "Permohonan Anda masih diproses.\n";
                 }
-                else if(query == 1) {
-                    if(StackHead == NULL) {
-                        if(QueueHead == NULL) cout << "Tidak ada permohonan peminjaman!\n";
+                else {
+                    string name;
+                    cout << "Masukkan nama Anda: ";
+                    getline(cin, name);
+                    int niu;
+                    cout << "Masukkan NIU Anda: ";
+                    cin >> niu;
+                    NodeStack* cur = StackHead;
+                    while(cur != NULL) {
+                        if(cur->values.nama == name && cur->values.NIU == niu) break;
+                        cur = cur->next;
+                    }
+                    if(cur == NULL) {
+                        NodeQueue* check = QueueHead;
+                        while(check != NULL) {
+                            if(check->values.nama == name) break;
+                            check = check->next;
+                        }
+                        if(check == NULL) cout << "Data Anda tidak terdaftar!\n";
                         else cout << "Permohonan Anda masih diproses.\n";
                     }
                     else {
                         cout << "Riwayat peminjaman terakhir:\n";
-                        pop();
+                        cout << "Nama: " << cur->values.nama << '\n';
+                        cout << "NIU: " << cur->values.NIU << '\n';
+                        cout << "Jam: " << cur->values.jam << '\n';
+                        cout << "Durasi: " << cur->values.durasi << '\n';
+                        cout << "Keperluan: " << cur->values.alasan << '\n';
+                        cout << "Ruangan: " << cur->values.ruangan << '\n';
+                        cout << "Status: " << ((cur->status == 0) ? "Ditolak" : "Diterima") << '\n';
                     }
                 }
-                else break;
             }
-            
+            else break;
         }
         else if(userType == 1) {
             int query;
